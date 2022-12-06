@@ -2,7 +2,8 @@ package pages;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class InternetCitaPreviaPage {
     final static String EXPEDITION_DE_TARJETA_VALUE = "4010";
@@ -15,8 +16,8 @@ public class InternetCitaPreviaPage {
         $(byXpath("//*[@id=\"tramiteGrupo[0]\"]")).selectOptionByValue(EXPEDITION_DE_TARJETA_VALUE);
     }
 
-    public void sendForm() {
-        executeJavaScript("envia()");
+    public void submitForm() {
         sleep(1000);
+        $("#btnAceptar").submit();
     }
 }
