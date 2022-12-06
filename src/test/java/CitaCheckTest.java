@@ -1,10 +1,8 @@
 import com.codeborne.selenide.Configuration;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import pages.ActionsPage;
 import pages.FillDocumentsPage;
 import pages.InformationPage;
@@ -15,12 +13,19 @@ import static com.codeborne.selenide.Selenide.sleep;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static pages.ResultsPage.noCitaAvailable;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CitaCheckTest {
     final static String NATIONALITY = "RUSIA";
     final static String NIE = "XXXXXXXX";
     final static String NAME = "Ivan Ivanov";
     final static String START_URL = "https://icp.administracionelectronica.gob.es/icpplus/citar?p=46&locale=es";
+
+    @BeforeAll
+    static void init() {
+        Configuration.browser = "firefox";
+        FirefoxOptions options = new FirefoxOptions();
+        options.addArguments("-private");
+        Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
+    }
 
     @Test
     void citaSearch_ALZIRA() {
